@@ -63,6 +63,21 @@ public class ShortestPathsTest extends DijkstraTest {
   }
 
   @Test
+  public void pathStopsAtASourceEqualToTheOneInTheGraph() {
+    // Java reuses one Integer object for each value from -128 to 127. These
+    // vertices are above that range, so the source given to pathTo is equal to
+    // the vertex in the graph but is a different object.
+    Graph<Integer> graph = new AdjacencyListGraph<>();
+    graph.addVertex(1000);
+    graph.addVertex(1001);
+    graph.addVertex(1002);
+    graph.addEdge(1000, 1001, 1.0);
+    graph.addEdge(1001, 1002, 1.0);
+    List<Integer> path = Dijkstra.shortestPaths(graph, 1000).pathTo(1000, 1002);
+    assertEquals("1000 -> 1001 -> 1002", route(path));
+  }
+
+  @Test
   public void pathToAnUnreachableVertexIsEmpty() {
     Graph<Integer> graph = exampleGraph();
     graph.addVertex(6);
