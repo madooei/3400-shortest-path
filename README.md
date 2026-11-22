@@ -1,6 +1,6 @@
 # Shortest Paths
 
-The code for the shortest path chapter: distances counted in edges with a breadth-first search, Dijkstra's algorithm for the cheapest distances on a weighted graph, and recovering the cheapest path from the predecessor map. Each class in `shortestpath` has a JUnit suite, and so does the hash set the algorithm uses.
+The code for the shortest path chapter: Dijkstra's algorithm for the cheapest distances on a weighted graph, and recovering the cheapest path from the predecessor map. `Dijkstra` has a JUnit suite, and so does the hash set the algorithm uses.
 
 ## Prerequisites
 
@@ -18,7 +18,6 @@ code/
   src/
     main/
       shortestpath/
-        EdgeDistances.java            # edgeDistances, breadth-first search with distances
         Dijkstra.java                 # shortestDistances, shortestPaths, and the nested Step and Paths
         Main.java                     # a small demo
       graph/
@@ -33,9 +32,6 @@ code/
       map/
         Map.java                      # unchanged copy of the course Map ADT
         HashMap.java                  # unchanged copy of the course hash table
-      queue/
-        Queue.java                    # unchanged copy of the course Queue ADT
-        LinkedQueue.java              # unchanged copy of the course linked queue
       list/
         List.java                     # unchanged copy of the course List ADT
         ArrayList.java                # unchanged copy of the course array list
@@ -44,7 +40,6 @@ code/
         ArrayStack.java               # unchanged copy of the course array stack
     test/
       shortestpath/
-        EdgeDistancesTest.java
         DijkstraTest.java             # the abstract cheapest-distance scenarios
         ShortestDistancesTest.java    # runs them against shortestDistances
         ShortestPathsTest.java        # runs them against shortestPaths, and tests pathTo
@@ -64,7 +59,6 @@ code/
 
 ## What's here
 
-- `shortestpath.EdgeDistances` — `edgeDistances` runs a breadth-first search and records how many edges each reachable vertex is from the source. That is the shortest path when every edge costs the same.
 - `shortestpath.Dijkstra` — `shortestDistances` returns the cost of the cheapest path from the source to every vertex. `shortestPaths` also records the predecessor of each vertex. The nested `Step` pairs a vertex with a tentative distance, so the `ArrayHeap` returns the closest vertex first. The nested `Paths` holds the distances and the predecessors, and `pathTo` reads a path back out of them.
-- `shortestpath.Main` — runs both searches on the chapter's six-vertex weighted example graph.
+- `shortestpath.Main` — runs `shortestDistances` and `shortestPaths` on the chapter's six-vertex weighted example graph.
 - `set.HashSet` — the settled set: a `Set` whose elements are the keys of a course `HashMap`. `set.HashSetTest` runs the course `Set` contract suite against it.

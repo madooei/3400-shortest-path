@@ -5,7 +5,7 @@ import graph.Graph;
 import list.List;
 import map.Map;
 
-/** A small demo of edge distances and Dijkstra's algorithm on the chapter's example graph. */
+/** A small demo of Dijkstra's algorithm on the chapter's example graph. */
 public final class Main {
 
   private Main() {
@@ -14,12 +14,6 @@ public final class Main {
 
   public static void main(String[] args) {
     Graph<Integer> graph = buildExampleGraph();
-
-    Map<Integer, Integer> edges = EdgeDistances.edgeDistances(graph, 0);
-    System.out.println("Fewest edges from 0:");
-    for (int vertex = 0; vertex <= 5; vertex++) {
-      System.out.println("  to " + vertex + ": " + edges.get(vertex));
-    }
 
     Map<Integer, Double> distance = Dijkstra.shortestDistances(graph, 0);
     System.out.println("Cheapest cost from 0:");
