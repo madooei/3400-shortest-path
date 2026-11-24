@@ -58,7 +58,7 @@ code/
 - `scripts/test.sh shortestpath.ShortestDistancesTest` — compiles everything and runs only that test class.
 - `scripts/run.sh demo.DijkstraDemo` — compiles everything and runs that one demo. Every class you implement has its own demo.
 
-## What's here
+## Contents
 
 - `shortestpath.Dijkstra` — `shortestDistances` returns the cost of the cheapest path from the source to every vertex. `shortestPaths` also records the predecessor of each vertex. The frontier is an `IndexedArrayHeap` with each vertex as the item and its tentative distance as the priority. The nested `Paths` holds the distances and the predecessors, and `pathTo` reads a path back out of them.
 - `adaptiveheap.IndexedArrayHeap` — the adaptive heap chapter's heap. Its index map is a `HashMap` instead of a `TreeMap`, so the vertices need no ordering.
