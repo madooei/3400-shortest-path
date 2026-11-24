@@ -28,28 +28,11 @@ public final class Dijkstra {
     throw new UnsupportedOperationException("TODO: Implement me");
   }
 
-  // A vertex paired with a tentative distance. Steps compare by distance only.
-  private static class Step<V> implements Comparable<Step<V>> {
-    private final V vertex;
-    private final double distance;
-
-    Step(V vertex, double distance) {
-      this.vertex = vertex;
-      this.distance = distance;
-    }
-
-    @Override
-    public int compareTo(Step<V> other) {
-      // TODO: Implement me
-      throw new UnsupportedOperationException("TODO: Implement me");
-    }
-  }
-
   // The result of shortestPaths: the cost of the cheapest path from the source
   // to every vertex, and the vertex before each one on that path.
   public static class Paths<V> {
-    private final Map<V, Double> distance;
-    private final Map<V, V> predecessor;
+    private Map<V, Double> distance;
+    private Map<V, V> predecessor;
 
     Paths(Map<V, Double> distance, Map<V, V> predecessor) {
       this.distance = distance;
