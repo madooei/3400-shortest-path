@@ -27,7 +27,7 @@ code/
         IndexedArrayHeap.java         # the adaptive heap chapter's heap, with a HashMap index map
       set/
         Set.java                      # unchanged copy of the course Set ADT
-        HashSet.java                  # unchanged copy of the graph search chapter's hash set
+        HashSet.java                  # a hash set with separate chaining, copied from the chaining chapter
       map/
         Map.java                      # unchanged copy of the course Map ADT
         HashMap.java                  # unchanged copy of the course hash table
@@ -62,5 +62,5 @@ code/
 
 - `shortestpath.Dijkstra` — `shortestDistances` returns the cost of the cheapest path from the source to every vertex. `shortestPaths` also records the predecessor of each vertex. The frontier is an `IndexedArrayHeap` with each vertex as the item and its tentative distance as the priority. The nested `Paths` holds the distances and the predecessors, and `pathTo` reads a path back out of them.
 - `adaptiveheap.IndexedArrayHeap` — the adaptive heap chapter's heap. Its index map is a `HashMap` instead of a `TreeMap`, so the vertices need no ordering.
-- `set.HashSet` — the settled set: a `Set` whose elements are the keys of a course `HashMap`. `set.HashSetTest` runs the course `Set` contract suite against it.
+- `set.HashSet` — the settled set: the separate chaining chapter's hash set, copied unchanged. `set.HashSetTest` is copied with it: it runs the course `Set` contract suite against `HashSet`, then checks the buckets by reflection.
 - `demo.DijkstraDemo` — runs `shortestDistances` and `shortestPaths` on the chapter's six-vertex weighted example graph.
