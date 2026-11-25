@@ -2,19 +2,13 @@ package shortestpath;
 
 import graph.AdjacencyListGraph;
 import graph.Graph;
+import map.Map;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * The scenarios for the cost of a cheapest path. A concrete subclass supplies
- * distance() to pick the method under test.
- */
-public abstract class DijkstraTest {
-
-  // Returns the cost of the cheapest path from source to target, found by the
-  // method under test.
-  protected abstract double distance(Graph<Integer> graph, int source, int target);
+/** Tests for the cheapest distances that Dijkstra.search returns. */
+public class DijkstraTest {
 
   @Test
   public void distanceFromALoneVertexToItselfIsZero() {
@@ -78,6 +72,15 @@ public abstract class DijkstraTest {
   }
 
   @Test
+  public void searchHasAnEntryForEveryVertex() {
+    // 0 reaches 1, and 2 has no edges.
+    Graph<Integer> graph = vertices(3);
+    graph.addEdge(0, 1, 4.0);
+    Map<Integer, Double> distance = Dijkstra.search(graph, 0);
+    assertEquals(3, distance.size());
+  }
+
+  @Test
   public void distanceFollowsDirectedEdgesForward() {
     assertEquals(7.0, distance(oneWayLine(), 0, 2));
   }
@@ -98,9 +101,23 @@ public abstract class DijkstraTest {
   }
 
   @Test
+  public void searchSettlesALoweredVertexBeforeACostlierOne() {
+    // The edge 0-2 puts 2 on the frontier at 10, and the route 0, 1, 2 lowers
+    // it to 2. So 2 is settled before 3, which is on the frontier at 5, and
+    // the route 0, 1, 2, 3 lowers 3 to 3.
+    Graph<Integer> graph = vertices(4);
+    graph.addEdge(0, 1, 1.0);
+    graph.addEdge(0, 2, 10.0);
+    graph.addEdge(1, 2, 1.0);
+    graph.addEdge(2, 3, 1.0);
+    graph.addEdge(0, 3, 5.0);
+    assertEquals(3.0, distance(graph, 0, 3));
+  }
+
+  @Test
   public void searchAsksEachVertexForItsNeighborsOnce() {
-    // On the example graph, 1 and 4 each get a cheaper distance after their
-    // first entry is on the frontier. Those stale entries must not be processed.
+    // On the example graph, 1 and 4 each get a cheaper distance while they are
+    // on the frontier. Each of them is still settled only once.
     CountingGraph graph = new CountingGraph();
     addExampleEdges(graph);
     distance(graph, 0, 4);
@@ -115,6 +132,11 @@ public abstract class DijkstraTest {
     addExampleEdges(graph);
     distance(graph, 0, 4);
     assertEquals(7, graph.weightCalls);
+  }
+
+  // Returns the cost of the cheapest path from source to target.
+  private double distance(Graph<Integer> graph, int source, int target) {
+    return Dijkstra.search(graph, source).get(target);
   }
 
   // The chapter's example: six vertices, 0 through 5, with weighted undirected edges.
