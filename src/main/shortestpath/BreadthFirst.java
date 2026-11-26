@@ -24,11 +24,11 @@ public final class BreadthFirst {
     frontier.enqueue(start);
 
     while (!frontier.isEmpty()) {
-      V v = frontier.front();
+      V vertex = frontier.front();
       frontier.dequeue();
-      for (V neighbor : graph.neighbors(v)) {
+      for (V neighbor : graph.neighbors(vertex)) {
         if (!distance.containsKey(neighbor)) {
-          distance.put(neighbor, distance.get(v) + 1);
+          distance.put(neighbor, distance.get(vertex) + 1);
           frontier.enqueue(neighbor);
         }
       }
